@@ -13,7 +13,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   auth-service:
-    build: https://github.com/bheemavijay/auth-service
+    image: vkrishnan1999/auth-service:latest
     container_name: auth-service
     ports:
       - "8081:8081"
@@ -25,51 +25,28 @@ services:
       SPRING_DATASOURCE_PASSWORD: postgres
 
   student-service:
-    build: https://github.com/bheemavijay/student-service
+    image: vkrishnan1999/student-service:latest
     container_name: student-service
     ports:
-      - "8084:8084"
-    depends_on:
-      - postgres
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/interview_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      - "8083:8083"
 
   question-service:
-    build: https://github.com/bheemavijay/question-service
+    image: vkrishnan1999/question-service:latest
     container_name: question-service
     ports:
-      - "8083:8083"
-    depends_on:
-      - postgres
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/interview_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      - "8082:8082"
 
   quiz-service:
-    build: https://github.com/bheemavijay/quiz-service
+    image: vkrishnan1999/quiz-service:latest
     container_name: quiz-service
     ports:
-      - "8082:8082"
-    depends_on:
-      - postgres
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/interview_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      - "8084:8084"
 
   api-gateway:
-    build: https://github.com/bheemavijay/api-gateway
+    image: vkrishnan1999/api-gateway:latest
     container_name: api-gateway
     ports:
       - "8080:8080"
-    depends_on:
-      - auth-service
-      - quiz-service
-      - question-service
-      - student-service
 
 volumes:
   postgres_data:
